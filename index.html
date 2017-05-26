@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="allegroProject">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Turtle Facts and Quiz</title>
+  <!-- Bootstrap css and my own css -->
+  <link rel="stylesheet" 
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+  integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
+  crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container" ng-controller="allegroController as vm">
+   <div class="page-header">
+    <h1>Witaj w wyszukiwarce filmów!</h1>
+    <h3>
+      Znajdź swój film na dzisiaj!
+    </h3>
+  </div>
+  <form class="form-inline well well-sm clearfix">
+    <span class="glyphicon glyphicon-search"></span>
+    <input 
+    type="text" 
+    placeholder="Podaj tytuł..." 
+    class="form-control"
+    ng-model="vm.titles">
+    <input ng-show="vm.wyniki==1"
+    type="text" 
+    placeholder="Filtruj po tytule" 
+    class="form-control"
+    ng-model="vm.search.title">
+    <button ng-show="vm.wyniki==1" class="btn btn-warning"
+    ng-click="vm.orderMovies()">
+    <strong>Sortuj po tytule</strong>
+    </button>
+    <button class="btn btn-warning pull-right"
+    ng-click="vm.getMovies()">
+    <strong>Szukaj</strong>
+    </button>
+</form>
+<div class="row">
+  <div class="col-sm-6" ng-repeat="movie in vm.data | filter:vm.search| orderBy:vm.order">
+    <div class="well well-sm">
+      <div class="row">
+        <div class="col-md-6" ng-show="movie.poster_path.length">
+          <img ng-src="https://image.tmdb.org/t/p/w640/{{movie.poster_path}}" 
+          class="img-rounded img-responsive well-image">
+        </div>
+        <div class="col-md-6" ng-show="!movie.poster_path.length">
+          <img ng-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5RcNzQFstJF3GJpYKQ6cOZ5TMr0sUYbZC3HgY8FF3p2BoHe5W" 
+          class="img-rounded img-responsive well-image ">
+        </div> 
+        <div class="col-md-6">         
+          <h4>{{movie.title}}</h4>
+          <p><strong>Tytuł oryginalny: </strong>{{movie.original_title}}</p>
+          <p><strong>Data publikacji: </strong>{{movie.release_date | date}}</p>
+          <p><strong>Popularność: </strong>{{movie.popularity}}</p>
+          <p><strong>Liczba głosów: </strong>{{movie.vote_count}}</p>
+          <p><strong>Średnia ocena z głosów: </strong>{{movie.vote_average}}</p>
+          <button class="btn btn-primary pull-right"
+          data-toggle="modal"
+          data-target="#info"
+          ng-click="vm.changeActive(movie)">Szczegóły</button>
+        </div>
+      </div><!-- row -->
+    </div><!-- well -->
+  </div><!-- col-xs-6 -->
+</div>
+<!-- OKIENKO ZE SZCZEGOLAMI -->
+<div class="modal" id="info" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>{{vm.activeMovie.original_title}}</h2>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-2" ng-show="vm.activeMovie.poster_path.length">
+            <img ng-src="https://image.tmdb.org/t/p/w640/{{vm.activeMovie.poster_path}}" 
+            class="img-rounded img-responsive ">
+          </div>
+          <div class="col-xs-8 col-xs-offset-2" ng-show="!vm.activeMovie.poster_path.length">
+            <img ng-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5RcNzQFstJF3GJpYKQ6cOZ5TMr0sUYbZC3HgY8FF3p2BoHe5W" 
+            class="img-rounded img-responsive ">
+          </div>           
+        </div>
+        <div class="row top-buffer">
+          <div class="col-md-6">
+            <p><strong>Gatunek: </strong> </p>
+            <div ng-show="!vm.genres.length"> BRAK DANYCH</div>
+            <div ng-repeat="genre in vm.genres">
+              {{genre.name}}
+            </div></br>                          
+            <p><strong>Kraj Produkcji: </strong></p>
+            <div ng-show="!vm.productionCountry.length"> BRAK DANYCH</div>
+            <div ng-repeat="count in vm.productionCountry">
+              {{count.name}}
+            </div></br>
+            <p><strong>Firma Produkcji: </strong></p>
+            <div ng-show="!vm.productionCompanies.length"> BRAK DANYCH</div>
+            <div ng-repeat="prod in vm.productionCompanies" >
+              {{prod.name}}
+            </div></br>
+            <p>
+              <a href="https://www.themoviedb.org/movie/{{vm.activeMovie.id}}">Sprawdź na MovieDB!</a>
+            </p>
+          </div>
+          <div class="col-xs-12 top-buffer">
+            <p>{{vm.details.overview}}</p>
+            <button class="btn btn-danger pull-right" 
+            data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- third party js -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="bower_components/angular-i18n/angular-locale_pl-pl.js"></script>
+<!-- Our application scripts -->
+<script src="js/app.js"></script>
+
+<script src="js/Controllers/allegroController.js"></script>
+
+
+
+</body>
+</html>
