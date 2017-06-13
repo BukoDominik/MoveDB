@@ -3,3 +3,148 @@
     height: 324px;
 }
 
+.menu
+{ 
+	width: 100%;
+	padding: 10px 0;
+	background-color: #379810;
+	text-align: center;
+	border-top: 1px solid #751b1b;
+	border-bottom: 1px solid #751b1b;
+	margin-bottom: 10px;
+}
+ol
+{
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	font-size: 18px;
+	height: 35px;
+	line-height: 200%;
+	display: inline-block;
+}
+
+ol a
+{
+	color: #ffffff;
+	text-decoration: none;
+	display: block;
+}
+
+ol > li
+{
+	float: left;
+	width: 150px;
+	height: 40px;
+	border-right: 1px dashed #751b1b;
+}
+
+ol > li:first-child
+{
+	border-left: 1px dashed #751b1b;
+}
+
+ol > li:hover
+{
+	background-color: #050f01;
+}
+
+ol > li:hover > a
+{
+	color: #87c16f;
+}
+
+ol > li > ul
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	height: 40px;
+	display: none;
+}
+
+ol > li:hover > ul
+{
+	display: block;
+}
+
+ol > li > ul > li
+{
+	background-color:#87c16f;
+	position: relative;
+	z-index: 100;
+	border-top: 1px dashed #751b1b;
+}
+
+ol > li > ul > li:hover
+{
+	background-color: #c34f4f;
+}
+
+ol > li > ul > li:hover > a
+{
+	color: #451717;
+}
+
+.topbar
+{
+	background-color: #102d04;
+	color: white;
+	padding: 10px;
+	margin-top: 20px;
+	margin-bottom: 25px;
+	height: 260px;
+}
+
+.topbarL
+{
+	float:left;
+	padding: 20px;
+	width: 340px;
+	text-align: center;
+	border-right: 2px dotted #cccccc;
+}
+
+.topbarR
+{
+	float: left;
+	padding: 20px;
+	width: 760px;
+	font-size: 16px;
+	text-align: justify;
+}
+
+/*STYLE DO KROPEK NA SLIDERZE*/
+.nav {
+    display: block;
+    margin: 10px;
+    margin-left: auto;
+	margin-right: auto;
+}
+
+.nav .dot, .nav .dot a {
+    display: inline-block;
+
+}
+
+.dots .dot {
+    position: relative;
+    margin: 0 8px;
+    width: 12px;
+    height: 12px;
+}
+
+.dots .dot a {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    text-indent: 100%;
+    overflow: hidden;
+    background: #BBB;
+    border: 1px solid transparent;
+}
+
+
+

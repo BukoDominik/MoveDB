@@ -5,10 +5,12 @@
      angular
      .module("allegroProject")
      .controller("allegroController", allegroCtrl);
+     
 
 
-     function allegroCtrl($http){
+     function allegroCtrl($http, $timeout, $scope){
         var vm = this;
+         var number = Math.floor(Math.random()*5)+1;
 
         vm.titles ;
         vm.order = '-release_date';
@@ -18,6 +20,34 @@
         vm.getMovies = getMovies;
         vm.activeMovie ; 
         vm.changeActive = changeActive; 
+
+        vm.slides = [
+            {image: 'images/img00.jpg', description: 'Image 00'},
+            {image: 'images/img01.jpg', description: 'Image 01'},
+            {image: 'images/img02.jpg', description: 'Image 02'},
+            {image: 'images/img03.jpg', description: 'Image 03'},
+            {image: 'images/img04.jpg', description: 'Image 04'}
+        ];
+            vm.mov= 0;
+           vm.currentIndex = 0;
+    vm.setCurrentSlideIndex = function (index) {
+        vm.currentIndex = index;
+        vm.mov = index;
+    };
+    vm.isCurrentSlideIndex = function (index) {
+        return vm.currentIndex === index;
+    };
+
+    vm.startSlider = function (num) {
+        vm.num = num;
+        vm.num++; 
+        if (vm.num>4) {vm.num=0;}
+        $timeout(function() {vm.setCurrentSlideIndex(vm.num);}, 5000);
+        $timeout(function() {vm.startSlider(vm.num);} ,5000);
+    };
+
+
+
 
 
         function userAllegro(){
@@ -55,6 +85,7 @@
 
 
     }
+
 
 
 })();

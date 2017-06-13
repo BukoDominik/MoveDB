@@ -11,14 +11,98 @@
   crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div class="container" ng-controller="allegroController as vm">
+<body >
+  <div class="container" ng-controller="allegroController as vm" ng-init="vm.startSlider(0)">
    <div class="page-header">
     <h1>Witaj w wyszukiwarce filmów!</h1>
     <h3>
       Znajdź swój film na dzisiaj!
     </h3>
   </div>
+
+  <div class="menu">
+          <ol>
+        <li><a href="#">Strona główna</a></li>
+        <li><a href="#">Filmy</a>
+          <ul>
+            <li><a href="#">Nowości</a></li>
+            <li><a href="#">Top wszechczasów</a></li>
+            <li><a href="#">Najnowsze</a></li>
+            <li><a href="#">Polecane</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Aktorzy</a>
+          <ul>
+            <li><a href="#">Top aktorzy</a></li>
+            <li><a href="#">Najpopularniejsi</a></li>
+            <li><a href="#">Laureaci Oscara 2017</a></li>
+            <li><a href="#">Wyszukiwarka aktorów</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Seriale</a>
+          <ul>
+            <li><a href="#">Nowości</a></li>
+            <li><a href="#">Top seriale</a></li>
+            <li><a href="#">Najpopularniejsze</a></li>
+            <li><a href="#">Polecane</a></li>
+          </ul>
+        </li>
+        <li><a href="#">W kinach</a>
+          <ul>
+            <li><a href="#">Co nowego</a></li>
+            <li><a href="#">Lista seansów</a></li>
+            <li><a href="#">Promocje</a></li>
+            <li><a href="#">Ceny</a></li>
+          </ul>
+        </li>
+        <li><a href="#">O autorach</a></li>
+      </ol>
+  </div>
+
+
+
+
+
+
+
+
+<div class="topbar">
+    <div class="topbarL" style="float: left;" id="sliderJS">
+        <img style="width: 300px" ng-repeat="slide in vm.slides" class="slide" ng-hide="!vm.isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
+          
+        <nav class="nav">
+            <div class="wrapper">
+                <ul class="dots">
+                    <li class="dot" ng-repeat="slide in vm.slides">
+                        <a href="#" ng-class="{'active':isCurrentSlideIndex($index)}" ng-click="vm.setCurrentSlideIndex($index);">{{slide.description}}</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="topbarR" ng-if="vm.mov==0">
+<div><h3>Sed ut perspiciatis unde</h3></div>
+<div>omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consec</div>
+</div>
+    <div class="topbarR" ng-if="vm.mov==1">
+<div><h3>Cokolwiek o drugim filmie</h3></div>
+<div>quuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</div>
+</div>
+    <div class="topbarR" ng-if="vm.mov==2">
+<div><h3>Cokolwiek o trzecim filmie</h3></div>
+<div>ouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circum</div>
+</div>
+    <div class="topbarR" ng-if="vm.mov==3">
+<div><h3>Cokolwiek o czwartym filmie</h3></div>
+<div>tiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distin</div>
+</div>
+    <div class="topbarR" ng-if="vm.mov==4">
+<div><h3>Cokolwiek o piątym filmie</h3></div>
+<div>en who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our pow</div>
+</div>
+<div style="clear: both;"></div>
+</div>
+
+
   <form class="form-inline well well-sm clearfix">
     <span class="glyphicon glyphicon-search"></span>
     <input 
@@ -121,11 +205,17 @@
 
 <!-- third party js -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="bower_components/angular-i18n/angular-locale_pl-pl.js"></script>
+
 <!-- Our application scripts -->
 <script src="js/app.js"></script>
+
 
 <script src="js/Controllers/allegroController.js"></script>
 
